@@ -217,6 +217,12 @@ class CSVLoader {
     async load() {
         try {
             const response = await fetch(this.filePath);
+
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const csvText = await response.text();
             this.data = this.parseCSV(csvText);
             return this.data;
