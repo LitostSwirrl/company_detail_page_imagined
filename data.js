@@ -421,9 +421,9 @@ class DashboardRenderer {
      */
     render(companyData) {
         // Update header with company info (if available)
-        const companyName = companyData.raw['公司'] || 'Unknown Company';
+        const companyName = companyData.raw['公司'];
         const header = document.querySelector('.company-name');
-        if (header) {
+        if (header && companyName) {
             header.textContent = companyName;
         }
 
@@ -625,10 +625,12 @@ async function initializeDataManager() {
             dataManager.loadCompany(0);
             console.log('Data manager initialized successfully');
         } else {
-            console.warn('No companies loaded. Using demo mode.');
+            console.warn('No companies loaded. Using demo mode with hardcoded HTML data.');
+            // Don't render anything - keep the hardcoded HTML data intact
         }
     } catch (error) {
-        console.error('Data manager initialization failed:', error);
+        console.error('Data manager initialization failed. Using hardcoded HTML data:', error);
+        // Don't render anything - keep the hardcoded HTML data intact
     }
 }
 
