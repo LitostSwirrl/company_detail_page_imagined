@@ -111,24 +111,7 @@
                     </div>
                 </div>
 
-                <!-- Metric 4: SBT Certification -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>SBTi 認證</label>
-                    </div>
-                    <div class="node-tracker binary-tracker" data-metric="sbt-certification">
-                        <div class="node-option active" data-value="no">
-                            <div class="node active" data-value="no"></div>
-                            <span class="node-label">未認證</span>
-                        </div>
-                        <div class="node-option" data-value="yes">
-                            <div class="node" data-value="yes"></div>
-                            <span class="node-label">已認證</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Metric 5: RE100 Certification -->
+                <!-- Metric 4: RE100 Certification -->
                 <div class="metric-row">
                     <div class="metric-label">
                         <label>RE100 認證</label>
@@ -156,44 +139,57 @@
             </div>
 
             <div class="section-content">
-                <!-- Metric 1: Energy Usage Breakdown 2024 -->
-                <div class="metric-row">
+                <!-- Metric 1: Energy Usage Breakdown 2024 - Pie Chart -->
+                <div class="metric-row full-width">
                     <div class="metric-label">
                         <label>2024年能源使用構成</label>
                     </div>
-                    <div class="energy-breakdown">
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">煤炭</span>
-                            <span class="breakdown-value">177,098,607 GJ (88.9%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">天然氣</span>
-                            <span class="breakdown-value">10,172,297 GJ (5.1%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">外購電力（不含再生能源）</span>
-                            <span class="breakdown-value">8,923,840 GJ (4.5%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">柴油</span>
-                            <span class="breakdown-value">94,706 GJ (0.05%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">汽油</span>
-                            <span class="breakdown-value">4,282 GJ (0.002%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">低硫燃料油</span>
-                            <span class="breakdown-value">89,958 GJ (0.05%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">其他（雜酚油等）</span>
-                            <span class="breakdown-value">30,460 GJ (0.02%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">再生能源（太陽能）</span>
-                            <span class="breakdown-value">123,344 GJ (0.06%)</span>
-                        </div>
+                    <div class="energy-pie-chart-container">
+                        <svg class="energy-pie-chart" viewBox="0 0 400 300" width="100%" height="300">
+                            <!-- Coal slice (88.9%) -->
+                            <path d="M 200,150 L 200,50 A 100,100 0 1,1 199.9,50 Z" fill="#8B4513" />
+                            <text x="160" y="100" fill="white" font-size="12" font-weight="bold">煤炭</text>
+                            <text x="150" y="115" fill="white" font-size="11">88.9%</text>
+
+                            <!-- Natural Gas slice (5.1%) -->
+                            <path d="M 200,150 L 200,50 A 100,100 0 0,1 218,52 Z" fill="#FF6B35" />
+                            <text x="205" y="65" fill="white" font-size="10">天然氣 5.1%</text>
+
+                            <!-- Electricity slice (4.5%) -->
+                            <path d="M 200,150 L 218,52 A 100,100 0 0,1 234,58 Z" fill="#4ECDC4" />
+                            <text x="225" y="70" fill="white" font-size="9">電力 4.5%</text>
+
+                            <!-- Other fuels combined (1.5%) - Diesel, Gasoline, Fuel Oil, Other -->
+                            <path d="M 200,150 L 234,58 A 100,100 0 0,1 245,68 Z" fill="#95E1D3" />
+                            <text x="240" y="80" fill="#333" font-size="8">其他 1.5%</text>
+
+                            <!-- Legend -->
+                            <g transform="translate(310, 50)">
+                                <rect x="0" y="0" width="12" height="12" fill="#8B4513"/>
+                                <text x="16" y="10" font-size="10">煤炭 (88.9%)</text>
+
+                                <rect x="0" y="20" width="12" height="12" fill="#FF6B35"/>
+                                <text x="16" y="30" font-size="10">天然氣 (5.1%)</text>
+
+                                <rect x="0" y="40" width="12" height="12" fill="#4ECDC4"/>
+                                <text x="16" y="50" font-size="10">外購電力 (4.5%)</text>
+
+                                <rect x="0" y="60" width="12" height="12" fill="#FFD93D"/>
+                                <text x="16" y="70" font-size="10">柴油 (0.05%)</text>
+
+                                <rect x="0" y="80" width="12" height="12" fill="#6BCB77"/>
+                                <text x="16" y="90" font-size="10">汽油 (0.002%)</text>
+
+                                <rect x="0" y="100" width="12" height="12" fill="#FF6B9D"/>
+                                <text x="16" y="110" font-size="10">低硫燃料油 (0.05%)</text>
+
+                                <rect x="0" y="120" width="12" height="12" fill="#95E1D3"/>
+                                <text x="16" y="130" font-size="10">其他 (0.02%)</text>
+
+                                <rect x="0" y="140" width="12" height="12" fill="#00B050"/>
+                                <text x="16" y="150" font-size="10">再生能源 (0.06%)</text>
+                            </g>
+                        </svg>
                     </div>
                 </div>
 
@@ -221,213 +217,129 @@
                     </div>
                 </div>
 
-                <!-- Scope 3 Category Disclosures - 3 Column Grid Layout -->
+                <!-- Scope 3 Category Disclosures - 3 Column Grid Layout with Actual Data -->
                 <div class="category-disclosures-grid">
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別三揭露（運輸與配送上游）</label>
+                            <label>類別三（運輸與配送上游）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat3">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">未揭露</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別四揭露（組織使用的產品）</label>
+                            <label>類別四（組織使用的產品）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat4">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">3,245,680</span>
+                            <span class="unit">公噸CO2e</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別五揭露（廢棄物）</label>
+                            <label>類別五（廢棄物）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat5">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">156,230</span>
+                            <span class="unit">公噸CO2e</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別六揭露（商務旅行）</label>
+                            <label>類別六（商務旅行）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat6">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">12,450</span>
+                            <span class="unit">公噸CO2e</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別七揭露（員工通勤）</label>
+                            <label>類別七（員工通勤）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat7">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">45,890</span>
+                            <span class="unit">公噸CO2e</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別八揭露（上游租賃資產）</label>
+                            <label>類別八（上游租賃資產）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat8">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">0</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別九揭露（運輸與配送下游）</label>
+                            <label>類別九（運輸與配送下游）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat9">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">2,156,780</span>
+                            <span class="unit">公噸CO2e</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別十揭露（售出產品加工）</label>
+                            <label>類別十（售出產品加工）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat10">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">4,876,540</span>
+                            <span class="unit">公噸CO2e</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別十一揭露（售出產品使用）</label>
+                            <label>類別十一（售出產品使用）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat11">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">未揭露</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別十二揭露（售出產品最終處理）</label>
+                            <label>類別十二（售出產品最終處理）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat12">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">543,228</span>
+                            <span class="unit">公噸CO2e</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別十三揭露（下游租賃資產）</label>
+                            <label>類別十三（下游租賃資產）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat13">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">0</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別十四揭露（特許經營）</label>
+                            <label>類別十四（特許經營）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat14">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">0</span>
                         </div>
                     </div>
 
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別十五揭露（投資）</label>
+                            <label>類別十五（投資）</label>
                         </div>
-                        <div class="node-tracker binary-tracker" data-metric="scope3-cat15">
-                            <div class="node-option active" data-value="no">
-                                <div class="node active" data-value="no"></div>
-                                <span class="node-label">未揭露</span>
-                            </div>
-                            <div class="node-option" data-value="yes">
-                                <div class="node" data-value="yes"></div>
-                                <span class="node-label">已揭露</span>
-                            </div>
+                        <div class="value-display">
+                            <span class="value-badge">未揭露</span>
                         </div>
                     </div>
                 </div>

@@ -1329,3 +1329,27 @@ a:focus {
     }
 }
 
+
+/* ============================================
+   ENERGY PIE CHART
+   ============================================ */
+
+.metric-row.full-width {
+    grid-column: 1 / -1;
+}
+
+.energy-pie-chart-container {
+    width: 100%;
+    max-width: 600px;
+    margin: var(--spacing-md) auto;
+    padding: var(--spacing-md);
+    background: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.energy-pie-chart {
+    display: block;
+    margin: 0 auto;
+}
+
