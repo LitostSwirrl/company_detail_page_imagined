@@ -1313,6 +1313,27 @@ a:focus {
 
 .category-disclosures-grid .metric-row {
     margin-bottom: 0;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border-bottom: none;
+}
+
+.category-disclosures-grid .metric-label {
+    width: 100%;
+}
+
+.category-disclosures-grid .metric-label label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-dark);
+}
+
+.category-disclosures-grid .value-display {
+    width: 100%;
 }
 
 /* Responsive: 2 columns on tablets */
@@ -1340,9 +1361,9 @@ a:focus {
 
 .energy-pie-chart-container {
     width: 100%;
-    max-width: 600px;
-    margin: var(--spacing-md) auto;
-    padding: var(--spacing-md);
+    max-width: 100%;
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-xl);
     background: var(--color-white);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -1351,5 +1372,7 @@ a:focus {
 .energy-pie-chart {
     display: block;
     margin: 0 auto;
+    max-width: 900px;
+    width: 100%;
 }
 
