@@ -1352,14 +1352,14 @@ a:focus {
 
 
 /* ============================================
-   ENERGY PIE CHART
+   ENERGY BAR CHART
    ============================================ */
 
 .metric-row.full-width {
     grid-column: 1 / -1;
 }
 
-.energy-pie-chart-container {
+.energy-bar-chart-container {
     width: 100%;
     max-width: 100%;
     margin: var(--spacing-md) 0;
@@ -1369,10 +1369,8 @@ a:focus {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.energy-pie-chart {
+.energy-bar-chart {
     display: block;
-    margin: 0 auto;
-    max-width: 900px;
     width: 100%;
 }
 
