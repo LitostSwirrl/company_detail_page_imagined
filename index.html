@@ -45,13 +45,13 @@
                 <span class="category-label">承諾目標</span>
             </button>
             <button class="category-nav-item" data-section="emissions">
-                <span class="category-label">排放揭露</span>
+                <span class="category-label">揭露透明度</span>
             </button>
             <button class="category-nav-item" data-section="energy">
-                <span class="category-label">再生能源</span>
+                <span class="category-label">能源與再生能源</span>
             </button>
             <button class="category-nav-item" data-section="strategy">
-                <span class="category-label">策略行動</span>
+                <span class="category-label">策略與行動</span>
             </button>
         </nav>
 
@@ -67,91 +67,59 @@
             </div>
 
             <div class="section-content">
-                <!-- Metric 1: Net Zero Commitment Status -->
+                <!-- Metric 1: Net Zero Target Planning -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>淨零排放或碳中和承諾狀態</label>
-                    </div>
-                    <div class="node-tracker" data-metric="net-zero-status">
-                        <div class="node-option" data-value="no">
-                            <div class="node" data-value="no" title="無承諾"></div>
-                            <span class="node-label">無承諾</span>
-                        </div>
-                        <div class="node-option" data-value="pledged">
-                            <div class="node" data-value="pledged" title="承諾"></div>
-                            <span class="node-label">承諾</span>
-                        </div>
-                        <div class="node-option active" data-value="in-strategy">
-                            <div class="node active" data-value="in-strategy" title="納入企業策略"></div>
-                            <span class="node-label">納入策略</span>
-                        </div>
-                        <div class="node-option" data-value="achieved">
-                            <div class="node" data-value="achieved" title="已達成"></div>
-                            <span class="node-label">已達成</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Metric 2: Net Zero Target Year -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>淨零目標年</label>
+                        <label>淨零目標規劃</label>
                     </div>
                     <div class="value-display">
                         <span class="value-badge">2050</span>
                     </div>
                 </div>
 
-                <!-- Metric 3: Mid-term Reduction Target -->
+                <!-- Metric 2: Net Zero Commitment Description -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>是否設定中期減量目標</label>
+                        <label>淨零排放承諾</label>
                     </div>
-                    <div class="node-tracker binary-tracker" data-metric="midterm-target-status">
-                        <div class="node-option" data-value="no">
-                            <div class="node" data-value="no"></div>
-                            <span class="node-label">未設定</span>
-                        </div>
-                        <div class="node-option active" data-value="yes">
-                            <div class="node active" data-value="yes"></div>
-                            <span class="node-label">已設定</span>
-                        </div>
+                    <div class="text-description">
+                        <p>中鋼已設定短、中、長期減碳目標，長期以139年達成碳中和作為努力目標。</p>
                     </div>
                 </div>
 
-                <!-- Metric 4: Mid-term Target Year & Reduction % -->
+                <!-- Metric 3: Mid-term Reduction Planning (Combined) -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>中期減量目標</label>
+                        <label>中期減量規劃</label>
                     </div>
-                    <div class="value-display target-display">
-                        <span class="value-badge">2030年</span>
-                        <span class="value-badge highlight">30%減量</span>
-                        <span class="value-note">（基準年：2022年）</span>
+                    <div class="text-description">
+                        <p>相較 <strong>2018</strong> 基準年 <strong>2030</strong> 減量 <strong>25%</strong></p>
+                        <p class="value-note">基準年排放量：22,100,460 公噸CO2e</p>
+                        <p class="value-note">SBTi認證：否</p>
                     </div>
                 </div>
 
-                <!-- Metric 5: SBT Certification -->
+                <!-- Metric 4: SBT Certification -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>SBTi認證</label>
+                        <label>SBTi 認證</label>
                     </div>
                     <div class="node-tracker binary-tracker" data-metric="sbt-certification">
-                        <div class="node-option" data-value="no">
-                            <div class="node" data-value="no"></div>
+                        <div class="node-option active" data-value="no">
+                            <div class="node active" data-value="no"></div>
                             <span class="node-label">未認證</span>
                         </div>
-                        <div class="node-option active" data-value="yes">
-                            <div class="node active" data-value="yes"></div>
+                        <div class="node-option" data-value="yes">
+                            <div class="node" data-value="yes"></div>
                             <span class="node-label">已認證</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Metric 6: RE100 Certification -->
+                <!-- Metric 5: RE100 Certification -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>RE100認證</label>
+                        <label>RE100 認證</label>
                     </div>
                     <div class="node-tracker binary-tracker" data-metric="re100-commitment">
                         <div class="node-option active" data-value="no">
@@ -167,115 +135,126 @@
             </div>
         </section>
 
-        <!-- SECTION 2: EMISSIONS & DISCLOSURE -->
+        <!-- SECTION 2: DISCLOSURE TRANSPARENCY -->
         <section id="emissions" class="climate-section section-emissions" data-section="emissions">
             <div class="section-header">
                 <div class="section-color-bar"></div>
-                <h3 class="section-title">排放揭露</h3>
-                <p class="section-subtitle">企業排放數據的揭露範圍與完整性</p>
+                <h3 class="section-title">揭露透明度</h3>
+                <p class="section-subtitle">企業排放與能源數據的揭露範圍與完整性</p>
             </div>
 
             <div class="section-content">
-                <!-- Metric 1: Overall Disclosure Status -->
+                <!-- Metric 1: Energy Usage Breakdown 2024 -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>溫室氣體排放資料揭露</label>
+                        <label>2024年能源使用構成</label>
                     </div>
-                    <div class="node-tracker" data-metric="disclosure-status">
-                        <div class="node-option" data-value="none">
-                            <div class="node" data-value="none"></div>
-                            <span class="node-label">未揭露</span>
+                    <div class="energy-breakdown">
+                        <div class="breakdown-item">
+                            <span class="breakdown-name">煤炭</span>
+                            <span class="breakdown-value">177,098,607 GJ</span>
                         </div>
-                        <div class="node-option active" data-value="partial">
-                            <div class="node active" data-value="partial"></div>
-                            <span class="node-label">部分</span>
+                        <div class="breakdown-item">
+                            <span class="breakdown-name">天然氣</span>
+                            <span class="breakdown-value">10,172,297 GJ</span>
                         </div>
-                        <div class="node-option" data-value="complete">
-                            <div class="node" data-value="complete"></div>
-                            <span class="node-label">完整</span>
+                        <div class="breakdown-item">
+                            <span class="breakdown-name">外購電力（不含再生能源）</span>
+                            <span class="breakdown-value">8,923,840 GJ</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-name">再生能源（太陽能）</span>
+                            <span class="breakdown-value">123,344 GJ</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-name">其他燃料</span>
+                            <span class="breakdown-value">219,406 GJ</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Metric 2: Energy Breakdown Disclosure -->
+                <!-- Metric 2: 22-24 Emissions Data -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>能源使用細項揭露</label>
+                        <label>22-24 年碳排放量</label>
                     </div>
-                    <div class="node-tracker binary-tracker" data-metric="energy-breakdown-disclosure">
-                        <div class="node-option" data-value="no">
-                            <div class="node" data-value="no"></div>
-                            <span class="node-label">未揭露</span>
-                        </div>
-                        <div class="node-option active" data-value="yes">
-                            <div class="node active" data-value="yes"></div>
-                            <span class="node-label">已揭露</span>
-                        </div>
+                    <div class="value-display target-display">
+                        <span class="value-badge">2022年：19,630,736</span>
+                        <span class="value-badge">2023年：18,066,406</span>
+                        <span class="value-badge highlight">2024年：18,753,412</span>
+                        <span class="unit">公噸CO2e</span>
                     </div>
                 </div>
 
-                <!-- Metric 3: Scope 1 Reporting -->
+                <!-- Metric 3: Scope 3 Emissions -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>範疇一排放</label>
+                        <label>範疇三排放量</label>
                     </div>
-                    <div class="node-tracker binary-tracker" data-metric="scope1-reporting">
-                        <div class="node-option" data-value="not-reported">
-                            <div class="node" data-value="not-reported"></div>
-                            <span class="node-label">未報告</span>
-                        </div>
-                        <div class="node-option active" data-value="reported">
-                            <div class="node active" data-value="reported"></div>
-                            <span class="node-label">已報告</span>
-                        </div>
+                    <div class="value-display">
+                        <span class="value-badge large">11,036,798</span>
+                        <span class="unit">公噸CO2e</span>
                     </div>
                 </div>
 
-                <!-- Metric 4: Scope 2 Reporting -->
+                <!-- Metric 4: Scope 3 Category Disclosures -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>範疇二排放</label>
+                        <label>範疇三類別揭露</label>
                     </div>
-                    <div class="node-tracker binary-tracker" data-metric="scope2-reporting">
-                        <div class="node-option" data-value="not-reported">
-                            <div class="node" data-value="not-reported"></div>
-                            <span class="node-label">未報告</span>
+                    <div class="source-list">
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別三（運輸與配送上游）</span>
                         </div>
-                        <div class="node-option active" data-value="reported">
-                            <div class="node active" data-value="reported"></div>
-                            <span class="node-label">已報告</span>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別四（組織使用的產品）</span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Metric 5: Scope 3 Reporting & Reduction -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>範疇三排放與減量目標</label>
-                    </div>
-                    <div class="node-tracker" data-metric="scope3-reporting">
-                        <div class="node-option" data-value="not-reported">
-                            <div class="node" data-value="not-reported"></div>
-                            <span class="node-label">未報告</span>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別五（廢棄物）</span>
                         </div>
-                        <div class="node-option active" data-value="reported-no-target">
-                            <div class="node active" data-value="reported-no-target"></div>
-                            <span class="node-label">報告無目標</span>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別六（商務旅行）</span>
                         </div>
-                        <div class="node-option" data-value="reported-with-target">
-                            <div class="node" data-value="reported-with-target"></div>
-                            <span class="node-label">有減量目標</span>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別七（員工通勤）</span>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Metric 6: Scope 3 Reduction Actions -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>範疇三減量實際作為</label>
-                    </div>
-                    <div class="text-description">
-                        <p>加強供應鏈管理，推動供應商碳揭露計畫，鼓勵綠色運輸方案，減少物流排放。</p>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別八（上游租賃資產）</span>
+                        </div>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別九（運輸與配送下游）</span>
+                        </div>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別十（售出產品加工）</span>
+                        </div>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別十一（售出產品使用）</span>
+                        </div>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別十二（售出產品最終處理）</span>
+                        </div>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別十三（下游租賃資產）</span>
+                        </div>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別十四（特許經營）</span>
+                        </div>
+                        <div class="source-item">
+                            <span class="source-icon">○</span>
+                            <span class="source-name">類別十五（投資）</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -296,118 +275,55 @@
                         <label>2024年總用電量</label>
                     </div>
                     <div class="value-display">
-                        <span class="value-badge large">685,000</span>
-                        <span class="unit">MWh</span>
+                        <span class="value-badge large">2,478,844,444</span>
+                        <span class="unit">度（kWh）</span>
                     </div>
                 </div>
 
-                <!-- Metric 3: Energy Efficiency Targets -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>是否設定節能目標</label>
-                    </div>
-                    <div class="node-tracker binary-tracker" data-metric="energy-efficiency-target">
-                        <div class="node-option" data-value="no">
-                            <div class="node" data-value="no"></div>
-                            <span class="node-label">未設定</span>
-                        </div>
-                        <div class="node-option active" data-value="yes">
-                            <div class="node active" data-value="yes"></div>
-                            <span class="node-label">已設定</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Metric 4: Annual Energy Saving Rate Target -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>年節電率目標</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge">1.5%</span>
-                        <span class="unit">每年</span>
-                    </div>
-                </div>
-
-                <!-- Metric 5: Energy Efficiency Improvement Rate -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>能效進步率（2022-2024）</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge highlight">3.2%</span>
-                        <span class="unit">改善</span>
-                    </div>
-                </div>
-
-                <!-- Metric 6: Renewable Energy Capacity -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>再生能源裝置容量</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge large">45</span>
-                        <span class="unit">MW</span>
-                    </div>
-                </div>
-
-                <!-- Metric 7: RE100 Certification -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>RE100認證</label>
-                    </div>
-                    <div class="node-tracker binary-tracker" data-metric="re100-cert">
-                        <div class="node-option active" data-value="no">
-                            <div class="node active" data-value="no"></div>
-                            <span class="node-label">未加入</span>
-                        </div>
-                        <div class="node-option" data-value="yes">
-                            <div class="node" data-value="yes"></div>
-                            <span class="node-label">已加入</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Metric 8: Renewable Energy Usage Target -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>是否設定再生能源使用目標</label>
-                    </div>
-                    <div class="node-tracker binary-tracker" data-metric="re-usage-target">
-                        <div class="node-option" data-value="no">
-                            <div class="node" data-value="no"></div>
-                            <span class="node-label">未設定</span>
-                        </div>
-                        <div class="node-option active" data-value="yes">
-                            <div class="node active" data-value="yes"></div>
-                            <span class="node-label">已設定</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Metric 9: Renewable Energy Usage Target % -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>再生能源比例目標</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge">25%</span>
-                        <span class="unit">到2030年</span>
-                    </div>
-                </div>
-
-                <!-- Metric 10: Actual Renewable Energy Usage % -->
+                <!-- Metric 2: Actual Renewable Energy Usage % -->
                 <div class="metric-row">
                     <div class="metric-label">
                         <label>實際再生能源使用比例（2024）</label>
                     </div>
                     <div class="value-display target-display">
-                        <span class="value-badge highlight">12.5%</span>
-                        <span class="value-note">（目標：25%）</span>
+                        <span class="value-badge highlight">0.5%</span>
+                        <span class="value-note">（自發自用、購電協議、再生能源憑證）</span>
                     </div>
                 </div>
 
-                <!-- Metric 11: Renewable Energy Sources -->
+                <!-- Metric 3: Renewable Energy Capacity -->
+                <div class="metric-row">
+                    <div class="metric-label">
+                        <label>再生能源裝置容量</label>
+                    </div>
+                    <div class="value-display">
+                        <span class="value-badge large">529</span>
+                        <span class="unit">MW</span>
+                    </div>
+                </div>
+
+                <!-- Metric 4: Government RE Obligation -->
+                <div class="metric-row">
+                    <div class="metric-label">
+                        <label>政府用電大戶再生能源義務</label>
+                    </div>
+                    <div class="node-tracker" data-metric="gov-re-obligation">
+                        <div class="node-option" data-value="not-applicable">
+                            <div class="node" data-value="not-applicable"></div>
+                            <span class="node-label">不適用</span>
+                        </div>
+                        <div class="node-option active" data-value="not-met">
+                            <div class="node active" data-value="not-met"></div>
+                            <span class="node-label">未達成</span>
+                        </div>
+                        <div class="node-option" data-value="met">
+                            <div class="node" data-value="met"></div>
+                            <span class="node-label">已達成</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metric 5: Renewable Energy Sources -->
                 <div class="metric-row">
                     <div class="metric-label">
                         <label>再生能源使用來源</label>
@@ -420,33 +336,43 @@
                         </div>
                         <div class="source-item active">
                             <span class="source-icon">✓</span>
-                            <span class="source-name">購電協議（PPA）</span>
+                            <span class="source-name">購電協議（綠電直轉供）</span>
                         </div>
-                        <div class="source-item">
-                            <span class="source-icon">○</span>
+                        <div class="source-item active">
+                            <span class="source-icon">✓</span>
                             <span class="source-name">再生能源憑證</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Metric 12: Government RE Obligation -->
+                <!-- Metric 6: Renewable Energy Usage Target % -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>政府用電大戶再生能源義務</label>
+                        <label>再生能源比例目標</label>
                     </div>
-                    <div class="node-tracker" data-metric="gov-re-obligation">
-                        <div class="node-option" data-value="not-applicable">
-                            <div class="node" data-value="not-applicable"></div>
-                            <span class="node-label">不適用</span>
-                        </div>
-                        <div class="node-option" data-value="not-met">
-                            <div class="node" data-value="not-met"></div>
-                            <span class="node-label">未達成</span>
-                        </div>
-                        <div class="node-option active" data-value="met">
-                            <div class="node active" data-value="met"></div>
-                            <span class="node-label">已達成</span>
-                        </div>
+                    <div class="value-display">
+                        <span class="value-badge">無設定</span>
+                    </div>
+                </div>
+
+                <!-- Metric 7: Annual Energy Saving Rate Target -->
+                <div class="metric-row">
+                    <div class="metric-label">
+                        <label>年節電率目標</label>
+                    </div>
+                    <div class="value-display">
+                        <span class="value-badge">無設定</span>
+                    </div>
+                </div>
+
+                <!-- Metric 8: Energy Efficiency Improvement Rate -->
+                <div class="metric-row">
+                    <div class="metric-label">
+                        <label>能效進步率（2022-2024）</label>
+                    </div>
+                    <div class="value-display">
+                        <span class="value-badge highlight">-8.7%</span>
+                        <span class="unit">（負值表示能效退步）</span>
                     </div>
                 </div>
             </div>
@@ -468,53 +394,24 @@
                         <label>關鍵減量策略</label>
                     </div>
                     <div class="text-description expandable">
-                        <p><strong>能源轉換</strong>：加大再生能源投資，目標2030年再生能源比例達25%。建置太陽能與風電項目共45MW。</p>
-                        <p><strong>製程改善</strong>：導入最新節能技術，製程電耗減少3.2%（2022-2024）。推動電磁爐及高效鍋爐升級。</p>
-                        <p><strong>供應鏈管理</strong>：推動供應商溫室氣體披露計畫，建立綠色採購標準。鼓勵使用低碳原料。</p>
-                        <p><strong>員工參與</strong>：建立員工節能獎勵計畫，提升能源管理意識，推動全廠節能文化。</p>
+                        <p>中鋼已設定短、中、長期減碳目標，長期以139年達成碳中和作為努力目標，規劃各項策略，並制定碳中和路徑規劃圖。短期減碳策略，採取「增加再生能源使用」、「加大力度提升能源效率」為主；114至119年主要透過「高爐添加低排碳鐵源」、「高爐噴氫取代煤」、「鋼化聯產」、「增用廢鋼」達到119年較107年減碳25%之目標（範疇一+範疇二），119年之後邁向碳中和的長程規劃有4個路徑，「設備電力化」、「無碳燃料」、「碳捕捉利用與封存(CCUS)」、「全氫能冶煉製程」，共10個面向推動減碳工作，並於139年邁向碳中和目標。</p>
                     </div>
                 </div>
 
-                <!-- Metric 2: Energy Usage Breakdown -->
+                <!-- Metric 2: Scope 3 Reduction Actions -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>2024年能源使用構成</label>
+                        <label>範疇三減量實際作為</label>
                     </div>
-                    <div class="energy-breakdown">
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">電力</span>
-                            <span class="breakdown-value">685,000 MWh (61%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">天然氣</span>
-                            <span class="breakdown-value">285,000 GJ (18%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">煤炭</span>
-                            <span class="breakdown-value">198,000 GJ (13%)</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-name">其他</span>
-                            <span class="breakdown-value">42,000 GJ (8%)</span>
-                        </div>
+                    <div class="text-description">
+                        <p>無具體範疇三減量目標設定</p>
                     </div>
                 </div>
 
-                <!-- Metric 3: Baseline Year & Emissions -->
+                <!-- Metric 3: Low-Carbon Products/Services -->
                 <div class="metric-row">
                     <div class="metric-label">
-                        <label>減量基準年</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge">2022年</span>
-                        <span class="value-note">基準年排放量：18,500,000 tCO2e</span>
-                    </div>
-                </div>
-
-                <!-- Metric 4: Low-Carbon Products/Services -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>低碳經濟轉型產品/服務</label>
+                        <label>提供低碳經濟轉型產品或服務</label>
                     </div>
                     <div class="node-tracker binary-tracker" data-metric="lowcarbon-products">
                         <div class="node-option" data-value="no">
@@ -528,14 +425,13 @@
                     </div>
                 </div>
 
-                <!-- Metric 5: Low-Carbon Revenue Contribution -->
+                <!-- Metric 4: Low-Carbon Revenue Contribution -->
                 <div class="metric-row">
                     <div class="metric-label">
                         <label>低碳產品營收占比</label>
                     </div>
                     <div class="value-display">
-                        <span class="value-badge">8.5%</span>
-                        <span class="unit">佔總營收</span>
+                        <span class="value-badge">資料未揭露</span>
                     </div>
                 </div>
             </div>
