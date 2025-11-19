@@ -1299,3 +1299,33 @@ a:focus {
         gap: var(--spacing-lg);
     }
 }
+
+/* ============================================
+   CATEGORY DISCLOSURES - 3 COLUMN GRID
+   ============================================ */
+
+.category-disclosures-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.category-disclosures-grid .metric-row {
+    margin-bottom: 0;
+}
+
+/* Responsive: 2 columns on tablets */
+@media (max-width: 1024px) {
+    .category-disclosures-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Responsive: 1 column on mobile */
+@media (max-width: 640px) {
+    .category-disclosures-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
