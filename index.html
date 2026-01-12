@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>排碳大戶觀測站 - 企業氣候數據儀表板</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- Header Section (Existing) -->
     <header class="dashboard-header">
@@ -13,7 +15,6 @@
             <div class="company-info">
                 <h1 class="company-name">中國鋼鐵股份有限公司</h1>
                 <div class="company-details">
-                    <span class="company-id">統一編號: 30414175</span>
                     <span class="company-stock">股票代號: 2002</span>
                     <span class="company-industry">行業: 鋼鐵業</span>
                     <span class="company-location">地點: 高雄市</span>
@@ -27,13 +28,43 @@
         <div class="summary-content">
             <div class="emissions-summary">
                 <div>
-                    <h2>2023年度排放量</h2>
-                    <p class="emissions-value">18,066,406<span class="unit">公噸CO2e</span></p>
+                    <h2>2024年度排放量</h2>
+                    <p class="emissions-value" id="emissions-total" style="cursor: pointer;">18,753,412<span
+                            class="unit">公噸CO2e</span></p>
+                    <p class="emissions-note"
+                        style="font-size: 0.8em; color: #999; margin-top: 0.5em; font-style: italic;">*
+                        點擊數值可展開範疇一、範疇二詳細數據</p>
+                    <!-- 詳細數據區塊（預設隱藏） -->
+                    <div id="scope-details"
+                        style="display: none; margin-top: 1em; padding: 1em; background: #f8f9fa; border-radius: 4px;">
+                        <p style="margin: 0.5em 0;"><strong>範疇一：</strong> 16,874,320 公噸CO2e</p>
+                        <p style="margin: 0.5em 0;"><strong>範疇二：</strong> 1,879,092 公噸CO2e</p>
+                    </div>
                 </div>
                 <div class="carbon-fee-summary">
-                    <h2>碳費影響（每噸300元預估）</h2>
-                    <p class="carbon-fee-value">54,049<span class="unit">百萬元</span></p>
-                    <p class="carbon-fee-note">（佔淨利之 153.1%）</p>
+                    <h2>碳費衝擊</h2>
+                    <p class="carbon-fee-badge"
+                        style="background-color: #ff6b6b; color: white; padding: 0.2em 0.5em; border-radius: 3px; display: inline-block; font-size: 0.85em; margin-bottom: 0.5em; line-height: 1.3; width: fit-content;">
+                        屬高碳洩漏風險者</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin-bottom: 0.75em;">
+                        <div>
+                            <p style="margin: 0.25em 0;"><strong>預估碳費（每噸 300 元）：</strong></p>
+                            <p class="carbon-fee-value" style="margin: 0.25em 0;">54,049 <span class="unit">百萬元</span>
+                                <span class="unit">(每噸300元預估)</span>
+                            </p>
+                            <p class="carbon-fee-note" style="margin: 0.25em 0;">佔淨利之 153.1% | 預期 EPS 影響: -12.5%</p>
+                        </div>
+                        <div>
+                            <p style="margin: 0.25em 0;"><strong>高碳洩漏風險者減免（-80%）：</strong></p>
+                            <p class="carbon-fee-value" style="margin: 0.25em 0;">10,810 <span class="unit">百萬元</span>
+                                <span class="unit">(實際收費)</span>
+                            </p>
+                            <p class="carbon-fee-note" style="margin: 0.25em 0;">佔淨利之 30.6% | 預期 EPS 影響: -2.5%</p>
+                        </div>
+                    </div>
+                    <p class="disclaimer"
+                        style="font-size: 0.8em; color: #999; margin-top: 0.75em; font-style: italic;">* 目前無法得知碳費減免完整名單
+                    </p>
                 </div>
             </div>
         </div>
@@ -42,9 +73,10 @@
     <!-- Performance Radar Chart Section -->
     <section class="charts-section radar-section">
         <div class="chart-group">
-            <h3>績效評比</h3>
-            <div class="chart-placeholder">
-                <p>雷達圖：企業績效 vs 同業平均</p>
+            <h3>企業氣候績效雷達圖</h3>
+            <div class="chart-placeholder"
+                style="text-align: center; padding: 60px 20px; color: #999; font-size: 14px; border: 1px dashed #ddd; border-radius: 8px; background: #f9f9f9;">
+                <p>待補充</p>
             </div>
         </div>
     </section>
@@ -56,469 +88,283 @@
             <button class="category-nav-item active" data-section="commitments">
                 <span class="category-label">承諾目標</span>
             </button>
-            <button class="category-nav-item" data-section="emissions">
-                <span class="category-label">揭露透明度</span>
+            <button class="category-nav-item" data-section="strategy">
+                <span class="category-label">策略與行動</span>
             </button>
             <button class="category-nav-item" data-section="energy">
                 <span class="category-label">能源與再生能源</span>
-            </button>
-            <button class="category-nav-item" data-section="strategy">
-                <span class="category-label">策略與行動</span>
             </button>
         </nav>
 
         <!-- Two-Column Layout Container -->
         <div class="dashboard-grid">
 
-        <!-- SECTION 1: COMMITMENTS & TARGETS -->
-        <section id="commitments" class="climate-section section-commitments" data-section="commitments">
-            <div class="section-header">
-                <div class="section-color-bar"></div>
-                <h3 class="section-title">承諾目標</h3>
-                <p class="section-subtitle">企業的淨零與中、長期減量承諾</p>
-            </div>
-
-            <div class="section-content">
-                <!-- Metric 1: Net Zero Target Planning -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>淨零目標規劃</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge">2050</span>
-                    </div>
+            <!-- SECTION 1: COMMITMENTS & TARGETS -->
+            <section id="commitments" class="climate-section section-commitments" data-section="commitments">
+                <div class="section-header">
+                    <div class="section-color-bar"></div>
+                    <h3 class="section-title">承諾目標</h3>
+                    <p class="section-subtitle">企業的淨零與中、長期減量承諾</p>
                 </div>
 
-                <!-- Metric 2: Net Zero Commitment Description -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>淨零排放承諾</label>
+                <div class="section-content">
+                    <!-- Metric 1: Net Zero Target Planning -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>淨零目標規劃
+                                <button class="help-icon" aria-label="幫助"
+                                    onclick="showInfoPopup('中鋼參酌國內外減碳目標設定，並檢視自身生產營運條件，中鋼設定短、中、長期減碳目標，長期以 2050 年達成碳中和作為努力目標，初步規劃各項策略，並制定碳中和路徑規劃圖。'); return false;">ⓘ</button>
+                            </label>
+                        </div>
+                        <div class="value-display">
+                            <span class="value-badge">2050</span>
+                        </div>
                     </div>
-                    <div class="text-description">
-                        <p>中鋼已設定短、中、長期減碳目標，長期以139年達成碳中和作為努力目標。</p>
+
+                    <!-- Metric 2: Mid-term Reduction Planning (Combined) -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>中期減量規劃</label>
+                        </div>
+                        <div class="text-description">
+                            <p>相較 <strong>2019</strong> 基準年，於 <strong>2030</strong> 年減量 <strong>25%</strong></p>
+                            <p class="value-note">基準年排放量：22,100,460 公噸CO2e</p>
+                        </div>
+                    </div>
+
+                    <!-- Metric 3: SBTi Certification (Binary Tracker) -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>中期目標 SBTi 認證</label>
+                        </div>
+                        <div class="node-tracker binary-tracker" data-metric="sbt-certification">
+                            <div class="node-option active" data-value="no">
+                                <div class="node active" data-value="no"></div>
+                                <span class="node-label">否</span>
+                            </div>
+                            <div class="node-option" data-value="yes">
+                                <div class="node" data-value="yes"></div>
+                                <span class="node-label">是</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metric 4: RE100 Certification -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>RE100 認證</label>
+                        </div>
+                        <div class="node-tracker binary-tracker" data-metric="re100-commitment">
+                            <div class="node-option active" data-value="no">
+                                <div class="node active" data-value="no"></div>
+                                <span class="node-label">否</span>
+                            </div>
+                            <div class="node-option" data-value="yes">
+                                <div class="node" data-value="yes"></div>
+                                <span class="node-label">是</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <!-- Metric 3: Mid-term Reduction Planning (Combined) -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>中期減量規劃</label>
-                    </div>
-                    <div class="text-description">
-                        <p>相較 <strong>2018</strong> 基準年，於 <strong>2030</strong> 年減量 <strong>25%</strong></p>
-                        <p class="value-note">基準年排放量：22,100,460 公噸CO2e</p>
-                        <p class="value-note">中期目標 SBT 認證：否</p>
-                    </div>
+
+            <!-- SECTION 5: STRATEGY & ACTION -->
+            <section id="strategy" class="climate-section section-strategy" data-section="strategy">
+                <div class="section-header">
+                    <div class="section-color-bar"></div>
+                    <h3 class="section-title">策略與行動</h3>
+                    <p class="section-subtitle">企業氣候策略與減量行動說明</p>
                 </div>
 
-                <!-- Metric 4: RE100 Certification -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>RE100 認證</label>
-                    </div>
-                    <div class="node-tracker binary-tracker" data-metric="re100-commitment">
-                        <div class="node-option active" data-value="no">
-                            <div class="node active" data-value="no"></div>
-                            <span class="node-label">未加入</span>
-                        </div>
-                        <div class="node-option" data-value="yes">
-                            <div class="node" data-value="yes"></div>
-                            <span class="node-label">已加入</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 2: DISCLOSURE TRANSPARENCY -->
-        <section id="emissions" class="climate-section section-emissions" data-section="emissions">
-            <div class="section-header">
-                <div class="section-color-bar"></div>
-                <h3 class="section-title">揭露透明度</h3>
-                <p class="section-subtitle">企業排放與能源數據的揭露範圍與完整性</p>
-            </div>
-
-            <div class="section-content">
-                <!-- Metric 1: Energy Usage Breakdown 2024 - Pie Chart -->
-                <div class="metric-row full-width">
-                    <div class="metric-label">
-                        <label>2024年能源使用構成</label>
-                    </div>
-                    <div class="energy-bar-chart-container">
-                        <svg class="energy-bar-chart" viewBox="0 0 1000 180" width="100%" height="180">
-                            <!-- Horizontal Stacked Bar (ordered from most to least used) -->
-                            <!-- Bar background -->
-                            <rect x="0" y="20" width="1000" height="60" fill="#f0f0f0" rx="4"/>
-
-                            <!-- Coal: 88.9% (0 to 889) -->
-                            <rect x="0" y="20" width="889" height="60" fill="#8B4513" rx="4"/>
-                            <text x="445" y="55" fill="white" font-size="18" font-weight="bold" text-anchor="middle">煤炭 88.9%</text>
-
-                            <!-- Natural Gas: 5.1% (889 to 940) -->
-                            <rect x="889" y="20" width="51" height="60" fill="#FF6B35"/>
-                            <text x="914.5" y="55" fill="white" font-size="12" text-anchor="middle">天然氣</text>
-                            <text x="914.5" y="68" fill="white" font-size="11" text-anchor="middle">5.1%</text>
-
-                            <!-- Electricity: 4.5% (940 to 985) -->
-                            <rect x="940" y="20" width="45" height="60" fill="#4ECDC4"/>
-                            <text x="962.5" y="55" fill="white" font-size="11" text-anchor="middle">電力</text>
-                            <text x="962.5" y="68" fill="white" font-size="10" text-anchor="middle">4.5%</text>
-
-                            <!-- Remaining small percentages (985 to 1000 = 1.5%) -->
-                            <rect x="985" y="20" width="15" height="60" fill="#95E1D3" rx="4"/>
-
-                            <!-- Legend for small items below the bar -->
-                            <g transform="translate(0, 100)">
-                                <text x="0" y="0" font-size="14" font-weight="bold" fill="#333">其他能源：</text>
-
-                                <rect x="0" y="10" width="16" height="16" fill="#00B050"/>
-                                <text x="20" y="22" font-size="13">再生能源 (0.06%)</text>
-
-                                <rect x="150" y="10" width="16" height="16" fill="#FFD93D"/>
-                                <text x="170" y="22" font-size="13">柴油 (0.05%)</text>
-
-                                <rect x="270" y="10" width="16" height="16" fill="#FF6B9D"/>
-                                <text x="290" y="22" font-size="13">低硫燃料油 (0.05%)</text>
-
-                                <rect x="430" y="10" width="16" height="16" fill="#95E1D3"/>
-                                <text x="450" y="22" font-size="13">其他 (0.02%)</text>
-
-                                <rect x="550" y="10" width="16" height="16" fill="#6BCB77"/>
-                                <text x="570" y="22" font-size="13">汽油 (0.002%)</text>
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Metric 2: 22-24 Emissions Data -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>22-24 年碳排放量</label>
-                    </div>
-                    <div class="value-display target-display">
-                        <span class="value-badge">2022年：19,630,736</span>
-                        <span class="value-badge">2023年：18,066,406</span>
-                        <span class="value-badge highlight">2024年：18,753,412</span>
-                        <span class="unit">公噸CO2e</span>
-                    </div>
-                </div>
-
-                <!-- Metric 3: Scope 3 Emissions -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>範疇三排放量（2023）</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge large">11,036,798</span>
-                        <span class="unit">公噸CO2e</span>
-                    </div>
-                </div>
-
-                <!-- Scope 3 Category Disclosures - 3 Column Grid Layout with Actual Data -->
-                <div class="category-disclosures-grid">
+                <div class="section-content">
+                    <!-- Metric 1: Key Reduction Strategies -->
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別三（運輸與配送上游）</label>
+                            <label>關鍵減量策略</label>
                         </div>
-                        <div class="value-display">
-                            <span class="value-badge">未揭露</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別四（組織使用的產品）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">3,245,680</span>
-                            <span class="unit">公噸CO2e</span>
+                        <div class="text-description expandable">
+                            <p>中鋼已設定短、中、長期減碳目標，長期以139年達成碳中和作為努力目標，規劃各項策略，並制定碳中和路徑規劃圖。短期減碳策略，採取「增加再生能源使用」、「加大力度提升能源效率」為主；114至119年主要透過「高爐添加低排碳鐵源」、「高爐噴氫取代煤」、「鋼化聯產」、「增用廢鋼」達到119年較107年減碳25%之目標（範疇一+範疇二），119年之後邁向碳中和的長程規劃有4個路徑，「設備電力化」、「無碳燃料」、「碳捕捉利用與封存(CCUS)」、「全氫能冶煉製程」，共10個面向推動減碳工作，並於139年邁向碳中和目標。
+                            </p>
                         </div>
                     </div>
 
+                    <!-- Metric 2: Scope 3 Reduction Actions -->
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別五（廢棄物）</label>
+                            <label>範疇三減量實際作為</label>
                         </div>
-                        <div class="value-display">
-                            <span class="value-badge">156,230</span>
-                            <span class="unit">公噸CO2e</span>
+                        <div class="text-description">
+                            <p>未設定範疇三減量目標，無具體減量實際作為揭露。</p>
                         </div>
                     </div>
 
+                    <!-- Metric 3: Low-Carbon Products/Services -->
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別六（商務旅行）</label>
+                            <label>提供低碳經濟轉型產品或服務</label>
                         </div>
-                        <div class="value-display">
-                            <span class="value-badge">12,450</span>
-                            <span class="unit">公噸CO2e</span>
+                        <div class="node-tracker binary-tracker" data-metric="lowcarbon-products">
+                            <div class="node-option" data-value="no">
+                                <div class="node" data-value="no"></div>
+                                <span class="node-label">未提供</span>
+                            </div>
+                            <div class="node-option active" data-value="yes">
+                                <div class="node active" data-value="yes"></div>
+                                <span class="node-label">有提供</span>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Metric 4: Low-Carbon Revenue Contribution -->
                     <div class="metric-row">
                         <div class="metric-label">
-                            <label>類別七（員工通勤）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">45,890</span>
-                            <span class="unit">公噸CO2e</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別八（上游租賃資產）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">0</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別九（運輸與配送下游）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">2,156,780</span>
-                            <span class="unit">公噸CO2e</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別十（售出產品加工）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">4,876,540</span>
-                            <span class="unit">公噸CO2e</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別十一（售出產品使用）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">未揭露</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別十二（售出產品最終處理）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">543,228</span>
-                            <span class="unit">公噸CO2e</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別十三（下游租賃資產）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">0</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別十四（特許經營）</label>
-                        </div>
-                        <div class="value-display">
-                            <span class="value-badge">0</span>
-                        </div>
-                    </div>
-
-                    <div class="metric-row">
-                        <div class="metric-label">
-                            <label>類別十五（投資）</label>
+                            <label>低碳產品營收占比</label>
                         </div>
                         <div class="value-display">
                             <span class="value-badge">未揭露</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- SECTION 3: ENERGY & RENEWABLES -->
-        <section id="energy" class="climate-section section-energy" data-section="energy">
-            <div class="section-header">
-                <div class="section-color-bar"></div>
-                <h3 class="section-title">能源與再生能源</h3>
-                <p class="section-subtitle">能源使用、效率提升與再生能源轉換</p>
-            </div>
-
-            <div class="section-content">
-                <!-- Metric 1: Total Electricity Consumption 2024 -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>2024年總用電量</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge large">2,478,844,444</span>
-                        <span class="unit">度（kWh）</span>
-                    </div>
+            <!-- SECTION 3: ENERGY & RENEWABLES (full width) -->
+            <section id="energy" class="climate-section section-energy full-width" data-section="energy">
+                <div class="section-header">
+                    <div class="section-color-bar"></div>
+                    <h3 class="section-title">能源與再生能源</h3>
+                    <p class="section-subtitle">能源使用、效率提升與再生能源轉換</p>
                 </div>
 
-                <!-- Metric 2: Actual Renewable Energy Usage % -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>實際再生能源使用比例（2024）</label>
-                    </div>
-                    <div class="value-display target-display">
-                        <span class="value-badge highlight">0.06%</span>
-                        <span class="value-note">（123,344 GJ / 182,734,510 GJ總能源使用）</span>
-                    </div>
-                </div>
-
-                <!-- Metric 3: Renewable Energy Capacity -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>再生能源裝置容量</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge large">529</span>
-                        <span class="unit">MW</span>
-                    </div>
-                </div>
-
-                <!-- Metric 4: Government RE Obligation -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>政府用電大戶再生能源義務</label>
-                    </div>
-                    <div class="node-tracker" data-metric="gov-re-obligation">
-                        <div class="node-option" data-value="not-applicable">
-                            <div class="node" data-value="not-applicable"></div>
-                            <span class="node-label">不適用</span>
+                <div class="section-content">
+                    <!-- Metric 1: Energy Usage Breakdown (Text Format) -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>2024年能源使用構成</label>
                         </div>
-                        <div class="node-option active" data-value="not-met">
-                            <div class="node active" data-value="not-met"></div>
-                            <span class="node-label">未達成</span>
-                        </div>
-                        <div class="node-option" data-value="met">
-                            <div class="node" data-value="met"></div>
-                            <span class="node-label">已達成</span>
+                        <div class="text-description">
+                            <p>煤炭 88.9%, 天然氣 5.1%, 電力 4.5%, 再生能源 0.06%, 柴油 0.05%, 低硫燃料油 0.05%, 其他 0.02%, 汽油 0.002%</p>
                         </div>
                     </div>
-                </div>
 
-                <!-- Metric 5: Renewable Energy Sources -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>再生能源使用來源</label>
-                        <button class="help-icon" aria-label="幫助" title="再生能源來自自發自用、購電協議或再生能源憑證">ⓘ</button>
-                    </div>
-                    <div class="source-list">
-                        <div class="source-item active">
-                            <span class="source-icon">✓</span>
-                            <span class="source-name">自發自用</span>
+                    <!-- Metric 2: Total Electricity Consumption 2024 -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>2024年總用電量</label>
                         </div>
-                        <div class="source-item active">
-                            <span class="source-icon">✓</span>
-                            <span class="source-name">購電協議（綠電直轉供）</span>
-                        </div>
-                        <div class="source-item active">
-                            <span class="source-icon">✓</span>
-                            <span class="source-name">再生能源憑證</span>
+                        <div class="value-display">
+                            <span class="value-badge large">2,478,844,444 <span class="unit">度（kWh）</span></span>
+                            <span class="value-note" style="margin-left: 1em; color: #666;">排名: 3/284</span>
                         </div>
                     </div>
-                </div>
 
-                <!-- Metric 6: Renewable Energy Usage Target % -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>再生能源比例目標</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge">未設定</span>
-                    </div>
-                </div>
-
-                <!-- Metric 7: Annual Energy Saving Rate Target -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>年節電率目標</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge">未設定</span>
-                    </div>
-                </div>
-
-                <!-- Metric 8: Energy Efficiency Improvement Rate -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>能效進步率（2022-2024）</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge highlight" style="background-color: #dc3545; color: white;">-8.7%</span>
-                        <span class="unit">（能源使用效率退步）</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- SECTION 5: STRATEGY & ACTION -->
-        <section id="strategy" class="climate-section section-strategy" data-section="strategy">
-            <div class="section-header">
-                <div class="section-color-bar"></div>
-                <h3 class="section-title">策略與行動</h3>
-                <p class="section-subtitle">企業氣候策略與減量行動說明</p>
-            </div>
-
-            <div class="section-content">
-                <!-- Metric 1: Key Reduction Strategies -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>關鍵減量策略</label>
-                    </div>
-                    <div class="text-description expandable">
-                        <p>中鋼已設定短、中、長期減碳目標，長期以139年達成碳中和作為努力目標，規劃各項策略，並制定碳中和路徑規劃圖。短期減碳策略，採取「增加再生能源使用」、「加大力度提升能源效率」為主；114至119年主要透過「高爐添加低排碳鐵源」、「高爐噴氫取代煤」、「鋼化聯產」、「增用廢鋼」達到119年較107年減碳25%之目標（範疇一+範疇二），119年之後邁向碳中和的長程規劃有4個路徑，「設備電力化」、「無碳燃料」、「碳捕捉利用與封存(CCUS)」、「全氫能冶煉製程」，共10個面向推動減碳工作，並於139年邁向碳中和目標。</p>
-                    </div>
-                </div>
-
-                <!-- Metric 2: Scope 3 Reduction Actions -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>範疇三減量實際作為</label>
-                    </div>
-                    <div class="text-description">
-                        <p>未設定範疇三減量目標，無具體減量實際作為揭露。</p>
-                    </div>
-                </div>
-
-                <!-- Metric 3: Low-Carbon Products/Services -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>提供低碳經濟轉型產品或服務</label>
-                    </div>
-                    <div class="node-tracker binary-tracker" data-metric="lowcarbon-products">
-                        <div class="node-option" data-value="no">
-                            <div class="node" data-value="no"></div>
-                            <span class="node-label">未提供</span>
+                    <!-- Metric 3: Scope 2 Electricity Ranking -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>範疇二用電排名</label>
                         </div>
-                        <div class="node-option active" data-value="yes">
-                            <div class="node active" data-value="yes"></div>
-                            <span class="node-label">有提供</span>
+                        <div class="value-display">
+                            <span class="value-badge">8/284</span>
+                            <span class="value-note" style="margin-left: 0.5em; color: #666; font-size: 0.9em;">(範疇二用電量:
+                                1,879,092 公噸CO2e)</span>
+                        </div>
+                    </div>
+
+                    <!-- Metric 2: Actual Renewable Energy Usage % -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>實際再生能源使用比例（2024）</label>
+                        </div>
+                        <div class="value-display target-display">
+                            <span class="value-badge highlight">0.06%</span>
+                            <span class="value-note">（123,344 GJ / 182,734,510 GJ總能源使用）</span>
+                        </div>
+                    </div>
+
+                    <!-- Metric 3: Renewable Energy Capacity -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>再生能源裝置容量</label>
+                        </div>
+                        <div class="value-display">
+                            <span class="value-badge large">529</span>
+                            <span class="unit">MW</span>
+                        </div>
+                    </div>
+
+                    <!-- Metric 5: Government RE Obligation -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>用電大戶再生能源裝置義務責任</label>
+                        </div>
+                        <div class="node-tracker binary-tracker" data-metric="gov-re-obligation">
+                            <div class="node-option active" data-value="not-met">
+                                <div class="node active" data-value="not-met"></div>
+                                <span class="node-label">未達成 / 未說明</span>
+                            </div>
+                            <div class="node-option" data-value="met">
+                                <div class="node" data-value="met"></div>
+                                <span class="node-label">已達成</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metric 5: Renewable Energy Sources -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>再生能源使用來源</label>
+                            <button class="help-icon" aria-label="幫助"
+                                onclick="showInfoPopup('不同來源的再生能源具有不同的環境效益與認證標準：<br><br>• <strong>自發自用</strong>：企業自行興建太陽能板等再生能源設備，直接供自己使用<br>• <strong>購電協議（綠電直轉供）</strong>：透過 PPA 協議從再生能源發電廠直接購電<br>• <strong>再生能源憑證（REC）</strong>：購買證明再生能源發電量的憑證<br><br>区分這些來源可以更清楚評估企業對再生能源的實際貢獻。'); return false;">ⓘ</button>
+                        </div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <div
+                                style="background: #e3f2fd; padding: 0.3em 0.6em; border-radius: 4px; font-size: 0.9em; width: fit-content;">
+                                ✓ 自發自用
+                            </div>
+                            <div
+                                style="background: #e3f2fd; padding: 0.3em 0.6em; border-radius: 4px; font-size: 0.9em; width: fit-content;">
+                                ✓ 購電協議（綠電直轉供）
+                            </div>
+                            <div
+                                style="background: #e3f2fd; padding: 0.3em 0.6em; border-radius: 4px; font-size: 0.9em; width: fit-content;">
+                                ✓ 再生能源憑證
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metric 7: Renewable Energy Usage Target % -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>2030 再生能源目標比例</label>
+                        </div>
+                        <div class="value-display">
+                            <span class="value-badge">未設定</span>
+                        </div>
+                    </div>
+
+                    <!-- Metric 7: Annual Energy Saving Rate Target -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>年節電率目標</label>
+                        </div>
+                        <div class="value-display">
+                            <span class="value-badge">未設定</span>
+                        </div>
+                    </div>
+
+                    <!-- Metric 8: Energy Efficiency Improvement Rate -->
+                    <div class="metric-row">
+                        <div class="metric-label">
+                            <label>能效進步率（2022-2024）</label>
+                        </div>
+                        <div class="value-display">
+                            <span class="value-badge highlight"
+                                style="background-color: #dc3545; color: white;">-8.7%</span>
+                            <span class="unit">（能源使用效率退步）</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- Metric 4: Low-Carbon Revenue Contribution -->
-                <div class="metric-row">
-                    <div class="metric-label">
-                        <label>低碳產品營收占比</label>
-                    </div>
-                    <div class="value-display">
-                        <span class="value-badge">未揭露</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
         </div><!-- End of dashboard-grid -->
     </main>
 
@@ -526,36 +372,60 @@
     <section class="climate-trends-section">
         <div class="trends-container">
             <div class="trends-header">
-                <h2>氣候績效趨勢</h2>
-                <div class="trends-tabs">
-                    <button class="trend-tab active" data-trend="energy">能源消耗趨勢</button>
-                    <button class="trend-tab" data-trend="emissions">年度排放量趨勢</button>
-                    <button class="trend-tab" data-trend="intensity">碳強度趨勢</button>
-                </div>
+                <h2>氣候數據趨勢（2022-2024年）</h2>
             </div>
 
-            <div class="trends-content">
-                <!-- Energy Consumption Trend -->
-                <div class="trend-chart active" data-trend="energy">
-                    <div class="trend-chart-container" id="energy-trend-chart"></div>
-                    <div class="trend-chart-legend">
-                        <p>2022: 1,250,000 GJ | 2023: 1,235,000 GJ | 2024: 1,210,000 GJ</p>
+            <div class="trends-content" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2em;">
+                <!-- Pair 1: Emissions + Carbon Intensity -->
+                <div class="trend-chart-pair" style="grid-column: span 2;">
+                    <h3>碳排放量與碳強度</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em;">
+                        <div class="trend-chart">
+                            <div class="trend-chart-container" id="emissions-trend-chart"></div>
+                            <div class="trend-chart-legend">
+                                <p><strong>年度排放量</strong><br>2022: 19,630,736 t | 2023: 18,066,406 t | 2024: 18,753,412
+                                    t</p>
+                            </div>
+                        </div>
+                        <div class="trend-chart">
+                            <div class="trend-chart-container" id="intensity-trend-chart"></div>
+                            <div class="trend-chart-legend">
+                                <p><strong>碳強度</strong><br>2022: 0.85 | 2023: 0.82 | 2024: 0.78 tCO2e/百萬元</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Emissions Trend -->
-                <div class="trend-chart" data-trend="emissions">
-                    <div class="trend-chart-container" id="emissions-trend-chart"></div>
-                    <div class="trend-chart-legend">
-                        <p>2022: 18,500,000 t | 2023: 18,250,000 t | 2024: 18,066,406 t</p>
+                <!-- Pair 2: Electricity + Renewable Energy Capacity -->
+                <div class="trend-chart-pair" style="grid-column: span 2;">
+                    <h3>用電量與再生能源裝置量</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em;">
+                        <div class="trend-chart">
+                            <div class="trend-chart-container" id="energy-trend-chart"></div>
+                            <div class="trend-chart-legend">
+                                <p><strong>總用電量</strong><br>2022: 2,450,000,000 kWh | 2023: 2,465,000,000 kWh | 2024:
+                                    2,478,844,444 kWh</p>
+                            </div>
+                        </div>
+                        <div class="trend-chart">
+                            <div class="trend-chart-container" id="re-capacity-trend-chart"></div>
+                            <div class="trend-chart-legend">
+                                <p><strong>再生能源裝置量</strong><br>2022: 350 MW | 2023: 440 MW | 2024: 529 MW</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Carbon Intensity Trend -->
-                <div class="trend-chart" data-trend="intensity">
-                    <div class="trend-chart-container" id="intensity-trend-chart"></div>
-                    <div class="trend-chart-legend">
-                        <p>2022: 0.85 | 2023: 0.82 | 2024: 0.78 tCO2e/百萬元</p>
+                <!-- Single Chart: Coal Consumption -->
+                <div class="trend-chart-pair" style="grid-column: span 2;">
+                    <h3>燃煤量</h3>
+                    <div class="trend-chart">
+                        <div class="trend-chart-container" id="coal-trend-chart"
+                            style="max-width: 600px; margin: 0 auto;"></div>
+                        <div class="trend-chart-legend">
+                            <p><strong>燃煤使用量</strong><br>2022: 15,250,000 t | 2023: 14,890,000 t | 2024: 14,520,000 t
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -566,20 +436,219 @@
     <section class="charts-section">
         <div class="chart-group">
             <h3>減量路徑</h3>
-            <div class="chart-placeholder">
-                <p>承諾當年 → 2030中期目標 → 2050淨零目標</p>
-            </div>
+            <div id="reduction-pathway-chart" style="width: 100%; height: 300px; margin-top: 1em;"></div>
         </div>
     </section>
 
+    <!-- 會員註冊 Modal -->
+    <div id="registerModal"
+        style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+        <div
+            style="background-color: white; margin: 10% auto; padding: 30px 40px; border-radius: 8px; width: 90%; max-width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0; font-size: 20px; color: #333;">會員註冊</h2>
+                <span onclick="closeRegisterModal()"
+                    style="font-size: 28px; font-weight: bold; color: #999; cursor: pointer; line-height: 1;">&times;</span>
+            </div>
+            <p style="color: #666; margin-bottom: 20px; font-size: 14px;">請先註冊會員以下載完整數據</p>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #333;">電子郵件</label>
+                    <input type="email" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+                        placeholder="your.email@example.com">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #333;">姓名</label>
+                    <input type="text" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+                        placeholder="您的姓名">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #333;">密碼</label>
+                    <input type="password" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+                        placeholder="至少8個字元">
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; font-size: 13px; color: #666; cursor: pointer;">
+                        <input type="checkbox" required style="margin-right: 8px;">
+                        我同意<a href="#" style="color: #0066CC; margin: 0 4px;">服務條款</a>和<a href="#"
+                            style="color: #0066CC; margin: 0 4px;">隱私政策</a>
+                    </label>
+                </div>
+                <button type="submit"
+                    style="width: 100%; padding: 12px; background-color: #0066CC; color: white; border: none; border-radius: 4px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">
+                    註冊並下載
+                </button>
+            </form>
+            <p style="text-align: center; margin-top: 15px; font-size: 13px; color: #666;">
+                已有帳號？<a href="#" style="color: #0066CC; text-decoration: none; font-weight: 600;">登入</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 企業更新申請 Modal -->
+    <div id="updateModal"
+        style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5);">
+        <div
+            style="background-color: white; margin: 8% auto; padding: 30px 40px; border-radius: 8px; width: 90%; max-width: 500px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0; font-size: 20px; color: #333;">申請企業更新</h2>
+                <span onclick="closeUpdateModal()"
+                    style="font-size: 28px; font-weight: bold; color: #999; cursor: pointer; line-height: 1;">&times;</span>
+            </div>
+            <p style="color: #666; margin-bottom: 20px; font-size: 14px;">如果您發現資料有誤或需要更新，請填寫以下表單，我們將儘快處理</p>
+            <form id="updateForm" onsubmit="handleUpdate(event)">
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #333;">您的姓名</label>
+                    <input type="text" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+                        placeholder="請輸入您的姓名">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #333;">聯絡電子郵件</label>
+                    <input type="email" required
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;"
+                        placeholder="your.email@example.com">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #333;">更新類型</label>
+                    <select required
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                        <option value="">請選擇</option>
+                        <option value="data-correction">數據修正</option>
+                        <option value="info-update">資訊更新</option>
+                        <option value="target-revision">目標修訂</option>
+                        <option value="other">其他</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label
+                        style="display: block; margin-bottom: 5px; font-size: 13px; font-weight: 600; color: #333;">修正需求訊息</label>
+                    <textarea required rows="5"
+                        style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; resize: vertical;"
+                        placeholder="請詳細說明需要修正或更新的內容..."></textarea>
+                </div>
+                <button type="submit"
+                    style="width: 100%; padding: 12px; background-color: #0066CC; color: white; border: none; border-radius: 4px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">
+                    提交申請
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="dashboard-footer">
-        <button class="download-btn">下載數據</button>
-        <p class="last-updated">最後更新：2024年11月 | <a href="#">申請企業更新</a></p>
+        <button class="download-btn" onclick="showRegisterModal()">下載數據</button>
+        <p class="last-updated">最後更新：2024年11月 | <a href="#" onclick="showUpdateModal(); return false;">申請企業更新</a></p>
     </footer>
+
+    <!-- Inline Scripts for Interactive Features -->
+    <script>
+        // 資訊 Popup 函數
+        function showInfoPopup(message) {
+            // 創建臨時 modal
+            const popup = document.createElement('div');
+            popup.style.cssText = 'position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;';
+
+            const content = document.createElement('div');
+            content.style.cssText = 'background: white; padding: 25px 30px; border-radius: 8px; max-width: 500px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);';
+            content.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="margin: 0; font-size: 18px; color: #333;">資訊說明</h3>
+                    <span onclick="this.closest('div[style*=\\'position: fixed\\']').remove()" 
+                          style="font-size: 24px; font-weight: bold; color: #999; cursor: pointer; line-height: 1;">&times;</span>
+                </div>
+                <div style="color: #666; font-size: 14px; line-height: 1.6;">${message}</div>
+            `;
+
+            popup.appendChild(content);
+            document.body.appendChild(popup);
+
+            // 點擊外部關閉
+            popup.addEventListener('click', function (e) {
+                if (e.target === popup) {
+                    popup.remove();
+                }
+            });
+        }
+
+        // 點擊展開範疇一、範疇二詳細數據
+        document.addEventListener('DOMContentLoaded', function () {
+            const emissionsTotal = document.getElementById('emissions-total');
+            const scopeDetails = document.getElementById('scope-details');
+
+            if (emissionsTotal && scopeDetails) {
+                emissionsTotal.addEventListener('click', function () {
+                    if (scopeDetails.style.display === 'none') {
+                        scopeDetails.style.display = 'block';
+                    } else {
+                        scopeDetails.style.display = 'none';
+                    }
+                });
+            }
+        });
+
+        // 會員註冊 Modal 控制函數
+        function showRegisterModal() {
+            document.getElementById('registerModal').style.display = 'block';
+        }
+
+        function closeRegisterModal() {
+            document.getElementById('registerModal').style.display = 'none';
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            alert('註冊成功！\n\n數據下載功能將在完整版本中提供。\n這是功能展示版本。');
+            closeRegisterModal();
+        }
+
+        //點擊 modal 外部關閉
+        window.onclick = function (event) {
+            const registerModal = document.getElementById('registerModal');
+            const updateModal = document.getElementById('updateModal');
+            if (event.target == registerModal) {
+                closeRegisterModal();
+            }
+            if (event.target == updateModal) {
+                closeUpdateModal();
+            }
+        }
+
+        // 企業更新 Modal 控制函數
+        function showUpdateModal() {
+            document.getElementById('updateModal').style.display = 'block';
+        }
+
+        function closeUpdateModal() {
+            document.getElementById('updateModal').style.display = 'none';
+        }
+
+        function handleUpdate(event) {
+            event.preventDefault();
+            alert('感謝您的申請！\n\n我們已收到您的更新需求，將於3個工作天內審核並回覆。');
+            closeUpdateModal();
+        }
+    </script>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+    <!-- Radar Chart Initialization -->
+    <script src="radar-chart.js"></script>
 
     <script src="script.js"></script>
     <script src="charts.js"></script>
     <script src="data.js"></script>
+    <script src="chart-init.js"></script>
 </body>
+
 </html>
