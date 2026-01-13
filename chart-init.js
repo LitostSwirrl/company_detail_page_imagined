@@ -13,22 +13,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         const width = container.offsetWidth || 300;
-        const height = 200; // 固定高度確保SVG渲染
-        const padding = { top: 20, right: 20, bottom: 40, left: 80 }; // 增加 left padding
+        const height = 200;
+        const padding = { top: 20, right: 20, bottom: 40, left: 80 };
         const chartWidth = width - padding.left - padding.right;
         const chartHeight = height - padding.top - padding.bottom;
 
-        // 改進 y 軸範圍計算：從0開始或使用合理範圍避免誇大變化
+        // 統一從 0 開始，使用整數刻度
         const dataMax = Math.max(...data.values);
-        const dataMin = Math.min(...data.values);
-        const dataRange = dataMax - dataMin;
+        const minValue = 0;
 
-        // 如果數據變化小於平均值的20%，從0開始以避免誇大變化
-        const dataAvg = data.values.reduce((a, b) => a + b, 0) / data.values.length;
-        const shouldStartFromZero = dataRange < dataAvg * 0.2;
+        // 計算合適的最大值（四捨五入到整數）
+        let maxValue;
+        if (dataMax >= 1000000) {
+            // 大數字：四捨五入到百萬
+            maxValue = Math.ceil(dataMax / 1000000) * 1000000;
+        } else if (dataMax >= 10000) {
+            // 中等數字：四捨五入到萬
+            maxValue = Math.ceil(dataMax / 10000) * 10000;
+        } else if (dataMax >= 100) {
+            // 小數字：四捨五入到百
+            maxValue = Math.ceil(dataMax / 100) * 100;
+        } else {
+            // 極小數字：四捨五入到十
+            maxValue = Math.ceil(dataMax / 10) * 10;
+        }
 
-        const minValue = shouldStartFromZero ? 0 : dataMin;
-        const maxValue = dataMax;
         const valueRange = maxValue - minValue || 1;
 
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -37,14 +46,33 @@ document.addEventListener('DOMContentLoaded', function () {
         svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
         svg.style.display = 'block';
 
-        // 計算點位
-        const points = data.values.map((value, index) => {
+        // 計算點位並保存數據值
+        const pointsData = data.values.map((value, index) => {
             const x = padding.left + (chartWidth / (data.values.length - 1)) * index;
             const y = padding.top + chartHeight - ((value - minValue) / valueRange) * chartHeight;
-            return `${x},${y}`;
-        }).join(' ');
+            return { x, y, value, label: data.labels[index] };
+        });
+
+        // 創建 tooltip
+        const tooltip = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        tooltip.setAttribute('id', `tooltip-${containerId}`);
+        tooltip.setAttribute('opacity', '0');
+        tooltip.setAttribute('pointer-events', 'none');
+
+        const tooltipRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        tooltipRect.setAttribute('fill', 'rgba(0, 0, 0, 0.8)');
+        tooltipRect.setAttribute('rx', '4');
+        tooltip.appendChild(tooltipRect);
+
+        const tooltipText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        tooltipText.setAttribute('fill', 'white');
+        tooltipText.setAttribute('font-size', '12');
+        tooltip.appendChild(tooltipText);
+
+        svg.appendChild(tooltip);
 
         // 折線
+        const points = pointsData.map(p => `${p.x},${p.y}`).join(' ');
         const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
         polyline.setAttribute('points', points);
         polyline.setAttribute('fill', 'none');
@@ -52,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         polyline.setAttribute('stroke-width', '2');
         svg.appendChild(polyline);
 
-        // Y 軸標籤（顯示5個刻度）
+        // Y 軸標籤（顯示5個刻度，使用整數）
         const yAxisSteps = 5;
         for (let i = 0; i <= yAxisSteps; i++) {
             const value = minValue + (valueRange / yAxisSteps) * i;
@@ -76,12 +104,10 @@ document.addEventListener('DOMContentLoaded', function () {
             label.setAttribute('font-size', '10');
             label.setAttribute('fill', '#666');
 
-            // 智能格式化：小數顯示2位，大數字用千位分隔符
+            // 格式化為整數
             let formattedValue;
             if (value < 1 && value > 0) {
                 formattedValue = value.toFixed(2);
-            } else if (value < 100) {
-                formattedValue = value.toFixed(1);
             } else {
                 formattedValue = Math.round(value).toLocaleString();
             }
@@ -89,21 +115,47 @@ document.addEventListener('DOMContentLoaded', function () {
             svg.appendChild(label);
         }
 
-        // 數據點
-        data.values.forEach((value, index) => {
-            const x = padding.left + (chartWidth / (data.values.length - 1)) * index;
-            const y = padding.top + chartHeight - ((value - minValue) / valueRange) * chartHeight;
-
+        // 數據點 + hover 功能
+        pointsData.forEach((point, index) => {
             const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            circle.setAttribute('cx', x);
-            circle.setAttribute('cy', y);
+            circle.setAttribute('cx', point.x);
+            circle.setAttribute('cy', point.y);
             circle.setAttribute('r', '4');
             circle.setAttribute('fill', config.color || '#0066CC');
+            circle.setAttribute('style', 'cursor: pointer;');
+
+            // Hover 事件
+            circle.addEventListener('mouseenter', function () {
+                // 顯示 tooltip
+                const formattedValue = point.value.toLocaleString();
+                tooltipText.textContent = `${point.label}: ${formattedValue}`;
+
+                const bbox = tooltipText.getBBox();
+                tooltipRect.setAttribute('x', bbox.x - 8);
+                tooltipRect.setAttribute('y', bbox.y - 4);
+                tooltipRect.setAttribute('width', bbox.width + 16);
+                tooltipRect.setAttribute('height', bbox.height + 8);
+
+                tooltipText.setAttribute('x', point.x);
+                tooltipText.setAttribute('y', point.y - 15);
+                tooltipText.setAttribute('text-anchor', 'middle');
+
+                tooltip.setAttribute('opacity', '1');
+
+                // 放大圓點
+                circle.setAttribute('r', '6');
+            });
+
+            circle.addEventListener('mouseleave', function () {
+                tooltip.setAttribute('opacity', '0');
+                circle.setAttribute('r', '4');
+            });
+
             svg.appendChild(circle);
 
             // 年份標籤
             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            text.setAttribute('x', x);
+            text.setAttribute('x', point.x);
             text.setAttribute('y', height - 10);
             text.setAttribute('text-anchor', 'middle');
             text.setAttribute('font-size', '12');
@@ -122,12 +174,35 @@ document.addEventListener('DOMContentLoaded', function () {
         const container = document.getElementById('reduction-pathway-chart');
         if (!container) return;
 
-        // 基準年 2019: 22,100,460
-        // 2030 目標: 減25% = 16,575,345
-        // 2050 目標: 淨零 = 0
+        // 基準年 2019: 22,100,460 公噸 CO2e (100%)
+        // 實際數據：
+        // 2022: 19,630,736 (88.8%)
+        // 2024: 18,753,412 (84.9%)
+        // 計算 2019-2024 的平均年成長率
+        const baselineEmissions = 22100460; // 2019
+        const emission2022 = 19630736;
+        const emission2024 = 18753412;
+
+        // 計算 2019-2024 的年均變化（以百分比計）
+        const pct2022 = (emission2022 / baselineEmissions) * 100; // 88.8%
+        const pct2024 = (emission2024 / baselineEmissions) * 100; // 84.9%
+
+        // 計算 2019-2024 線性斜率（每年約減少 3%）
+        const yearlyChange = (pct2024 - 100) / (2024 - 2019); // 約 -3.01% per year
+
+        // BAU 路徑：延續 2019-2024 趨勢
         const years = [2019, 2022, 2024, 2030, 2040, 2050];
-        const bau = [100, 100, 100, 100, 100, 100]; // BAU假設維持2019-2024水平（無減量措施）
-        const target = [100, 89, 85, 75, 40, 0]; // 實際減量目標（2019基準年為100%）
+        const bau = years.map(year => 100 + yearlyChange * (year - 2019));
+
+        // 目標路徑
+        const target = [100, 89, 85, 75, 40, 0];
+
+        // 計算動態 y 軸範圍（可能超過 100%）
+        const allValues = [...bau, ...target];
+        const maxPct = Math.max(...allValues);
+        const minPct = Math.min(...allValues, 0);
+        const yAxisMax = Math.ceil(maxPct / 10) * 10; // 四捨五入到 10
+        const yAxisMin = Math.floor(minPct / 10) * 10;
 
         const width = container.offsetWidth || 800;
         const height = 300;
@@ -152,23 +227,42 @@ document.addEventListener('DOMContentLoaded', function () {
         title.textContent = '企業溫室氣體年排放量趨勢與減量目標';
         svg.appendChild(title);
 
-        // 計算路徑點（Y軸縮放改為 /100 確保100%正確顯示）
-        const bauPoints = bau.map((value, i) => {
-            const x = padding.left + (chartWidth / (years.length - 1)) * i;
-            const y = padding.top + chartHeight - (value / 100) * chartHeight; // 改為 /100
-            return `${x},${y}`;
-        }).join(' ');
+        //創建 tooltip
+        const tooltip = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        tooltip.setAttribute('id', 'tooltip-reduction');
+        tooltip.setAttribute('opacity', '0');
+        tooltip.setAttribute('pointer-events', 'none');
 
-        const targetPoints = target.map((value, i) => {
+        const tooltipRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        tooltipRect.setAttribute('fill', 'rgba(0, 0, 0, 0.8)');
+        tooltipRect.setAttribute('rx', '4');
+        tooltip.appendChild(tooltipRect);
+
+        const tooltipText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        tooltipText.setAttribute('fill', 'white');
+        tooltipText.setAttribute('font-size', '11');
+        tooltip.appendChild(tooltipText);
+
+        svg.appendChild(tooltip);
+
+        // 計算路徑點（使用動態 y 軸）
+        const yRange = yAxisMax - yAxisMin;
+        const bauPointsData = bau.map((value, i) => {
             const x = padding.left + (chartWidth / (years.length - 1)) * i;
-            const y = padding.top + chartHeight - (value / 100) * chartHeight; // 改為 /100
-            return [x, y];
+            const y = padding.top + chartHeight - ((value - yAxisMin) / yRange) * chartHeight;
+            return { x, y, value, year: years[i] };
         });
 
-        // 面積填充（從BAU到目標線之間）
+        const targetPointsData = target.map((value, i) => {
+            const x = padding.left + (chartWidth / (years.length - 1)) * i;
+            const y = padding.top + chartHeight - ((value - yAxisMin) / yRange) * chartHeight;
+            return { x, y, value, year: years[i] };
+        });
+
+        // 面積填充（從目標線到底部）
         const areaPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        let d = `M ${targetPoints[0][0]},${targetPoints[0][1]}`;
-        targetPoints.forEach(([x, y]) => d += ` L ${x},${y}`);
+        let d = `M ${targetPointsData[0].x},${targetPointsData[0].y}`;
+        targetPointsData.forEach(p => d += ` L ${p.x},${p.y}`);
         d += ` L ${padding.left + chartWidth},${padding.top + chartHeight}`;
         d += ` L ${padding.left},${padding.top + chartHeight} Z`;
         areaPath.setAttribute('d', d);
@@ -178,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // BAU 線（虛線）
         const bauLine = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-        bauLine.setAttribute('points', bauPoints);
+        bauLine.setAttribute('points', bauPointsData.map(p => `${p.x},${p.y}`).join(' '));
         bauLine.setAttribute('fill', 'none');
         bauLine.setAttribute('stroke', '#666');
         bauLine.setAttribute('stroke-width', '2');
@@ -187,11 +281,71 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 目標線（實線）
         const targetLine = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-        targetLine.setAttribute('points', targetPoints.map(p => p.join(',')).join(' '));
+        targetLine.setAttribute('points', targetPointsData.map(p => `${p.x},${p.y}`).join(' '));
         targetLine.setAttribute('fill', 'none');
         targetLine.setAttribute('stroke', '#2e6930');
         targetLine.setAttribute('stroke-width', '3');
         svg.appendChild(targetLine);
+
+        // BAU 數據點 + hover
+        bauPointsData.forEach(point => {
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', point.x);
+            circle.setAttribute('cy', point.y);
+            circle.setAttribute('r', '4');
+            circle.setAttribute('fill', '#666');
+            circle.setAttribute('style', 'cursor: pointer;');
+
+            circle.addEventListener('mouseenter', function () {
+                tooltipText.textContent = `BAU ${point.year}: ${point.value.toFixed(1)}%`;
+                positionTooltip(point.x, point.y);
+                tooltip.setAttribute('opacity', '1');
+                circle.setAttribute('r', '6');
+            });
+
+            circle.addEventListener('mouseleave', function () {
+                tooltip.setAttribute('opacity', '0');
+                circle.setAttribute('r', '4');
+            });
+
+            svg.appendChild(circle);
+        });
+
+        // 目標數據點 + hover
+        targetPointsData.forEach(point => {
+            const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            circle.setAttribute('cx', point.x);
+            circle.setAttribute('cy', point.y);
+            circle.setAttribute('r', '5');
+            circle.setAttribute('fill', '#2e6930');
+            circle.setAttribute('style', 'cursor: pointer;');
+
+            circle.addEventListener('mouseenter', function () {
+                tooltipText.textContent = `目標 ${point.year}: ${point.value}%`;
+                positionTooltip(point.x, point.y);
+                tooltip.setAttribute('opacity', '1');
+                circle.setAttribute('r', '7');
+            });
+
+            circle.addEventListener('mouseleave', function () {
+                tooltip.setAttribute('opacity', '0');
+                circle.setAttribute('r', '5');
+            });
+
+            svg.appendChild(circle);
+        });
+
+        function positionTooltip(x, y) {
+            const bbox = tooltipText.getBBox();
+            tooltipRect.setAttribute('x', bbox.x - 8);
+            tooltipRect.setAttribute('y', bbox.y - 4);
+            tooltipRect.setAttribute('width', bbox.width + 16);
+            tooltipRect.setAttribute('height', bbox.height + 8);
+
+            tooltipText.setAttribute('x', x);
+            tooltipText.setAttribute('y', y - 15);
+            tooltipText.setAttribute('text-anchor', 'middle');
+        }
 
         // X軸標籤
         years.forEach((year, i) => {
@@ -206,10 +360,14 @@ document.addEventListener('DOMContentLoaded', function () {
             svg.appendChild(text);
         });
 
-        // Y軸標籤（百分比 - 10% 間隔）
-        const yAxisValues = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+        // Y軸標籤（動態範圍）
+        const yAxisValues = [];
+        for (let i = yAxisMin; i <= yAxisMax; i += 10) {
+            yAxisValues.push(i);
+        }
+
         yAxisValues.forEach(percent => {
-            const y = padding.top + chartHeight - (percent / 100) * chartHeight;
+            const y = padding.top + chartHeight - ((percent - yAxisMin) / yRange) * chartHeight;
 
             // 刻度線
             const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -232,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function () {
             svg.appendChild(text);
 
             // 網格線（淡色）
-            if (percent > 0 && percent < 100) {
+            if (percent !== yAxisMin && percent !== yAxisMax) {
                 const gridLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
                 gridLine.setAttribute('x1', padding.left);
                 gridLine.setAttribute('y1', y);

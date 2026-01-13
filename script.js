@@ -40,6 +40,7 @@ class CategoryNavigation {
     constructor() {
         this.navItems = document.querySelectorAll('.category-nav-item');
         this.sections = document.querySelectorAll('.climate-section');
+        this.scrollUpdateDisabled = false;
         this.init();
     }
 
@@ -61,6 +62,9 @@ class CategoryNavigation {
             this.navItems.forEach(item => item.classList.remove('active'));
             e.currentTarget.classList.add('active');
 
+            // Disable scroll-based navigation temporarily
+            this.scrollUpdateDisabled = true;
+
             // Scroll to section
             const headerHeight = document.querySelector('.dashboard-header').offsetHeight;
             const targetPosition = section.offsetTop - headerHeight - 20;
@@ -69,10 +73,20 @@ class CategoryNavigation {
                 top: targetPosition,
                 behavior: 'smooth'
             });
+
+            // Re-enable scroll-based navigation after animation completes
+            setTimeout(() => {
+                this.scrollUpdateDisabled = false;
+            }, 1000);
         }
     }
 
     updateActiveNav() {
+        // Skip if disabled (during manual navigation)
+        if (this.scrollUpdateDisabled) {
+            return;
+        }
+
         let currentSection = null;
         const headerHeight = document.querySelector('.dashboard-header').offsetHeight;
 
