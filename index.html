@@ -41,6 +41,42 @@
                         <p style="margin: 0.5em 0;"><strong>範疇二：</strong> 1,879,092 公噸CO2e</p>
                     </div>
                 </div>
+                <div>
+                    <h2>2024 年範疇三排放量</h2>
+                    <p class="emissions-value" id="scope3-total" style="cursor: pointer;">11,036,798<span
+                            class="unit">公噸CO2e</span></p>
+                    <p class="emissions-note"
+                        style="font-size: 0.8em; color: #999; margin-top: 0.5em; font-style: italic;">*
+                        點擊數值可展開範疇三詳細類別數據</p>
+                    <!-- 範疇三詳細數據區塊（預設隱藏） -->
+                    <div id="scope3-details"
+                        style="display: none; margin-top: 1em; padding: 1em; background: #f8f9fa; border-radius: 4px;">
+                        <!-- 第一行：類別 1-5 -->
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5em; margin-bottom: 0.5em;">
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 1:</strong><br>6,000,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">購買商品或服務</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 2:</strong><br>1,200,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">資本商品</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 3:</strong><br>1,500,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">燃料與能源相關活動</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 4:</strong><br>800,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">上游運輸和配送</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 5:</strong><br>200,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">營運廢棄物</span></p>
+                        </div>
+                        <!-- 第二行：類別 6-10 -->
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5em; margin-bottom: 0.5em;">
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 6:</strong><br>5,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">商務旅行</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 7:</strong><br>8,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">員工通勤</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 8:</strong><br>10,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">上游租賃資產</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 9:</strong><br>600,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">下游運輸和配送</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 10:</strong><br>500,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">銷售產品的加工</span></p>
+                        </div>
+                        <!-- 第三行：類別 11-15 -->
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5em;">
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 11:</strong><br>150,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">使用銷售產品</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 12:</strong><br>50,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">銷售產品廢棄處理</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 13:</strong><br>3,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">下游租賃資產</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 14:</strong><br>798 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">特許經營</span></p>
+                            <p style="margin: 0; font-size: 0.85em;"><strong>類別 15:</strong><br>10,000 公噸CO2e<br><span style="color: #666; font-size: 0.9em;">投資</span></p>
+                        </div>
+                    </div>
+                </div>
                 <div class="carbon-fee-summary">
                     <h2>碳費衝擊</h2>
                     <p class="carbon-fee-badge"
@@ -591,6 +627,20 @@
                         scopeDetails.style.display = 'block';
                     } else {
                         scopeDetails.style.display = 'none';
+                    }
+                });
+            }
+
+            // 點擊展開範疇三詳細數據
+            const scope3Total = document.getElementById('scope3-total');
+            const scope3Details = document.getElementById('scope3-details');
+
+            if (scope3Total && scope3Details) {
+                scope3Total.addEventListener('click', function () {
+                    if (scope3Details.style.display === 'none') {
+                        scope3Details.style.display = 'block';
+                    } else {
+                        scope3Details.style.display = 'none';
                     }
                 });
             }
