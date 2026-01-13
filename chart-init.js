@@ -131,7 +131,8 @@ document.addEventListener('DOMContentLoaded', function () {
             circle.addEventListener('mouseenter', function () {
                 // 顯示 tooltip
                 const formattedValue = point.value.toLocaleString();
-                tooltipText.textContent = `${point.label}: ${formattedValue}`;
+                const unit = config.unit || '';
+                tooltipText.textContent = `${point.label}年: ${formattedValue}${unit ? ' ' + unit : ''}`;
 
                 // 先設置位置再取得 bbox
                 tooltipText.setAttribute('x', point.x);
@@ -208,8 +209,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const yAxisMin = Math.floor(minPct / 10) * 10;
 
         const width = container.offsetWidth || 800;
-        const height = 300;
-        const padding = { top: 40, right: 60, left: 60, bottom: 50 };
+        const height = 350;
+        const padding = { top: 40, right: 60, left: 60, bottom: 60 };
         const chartWidth = width - padding.left - padding.right;
         const chartHeight = height - padding.top - padding.bottom;
 
@@ -300,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
             circle.setAttribute('style', 'cursor: pointer;');
 
             circle.addEventListener('mouseenter', function () {
-                tooltipText.textContent = `BAU ${point.year}: ${point.value.toFixed(1)}%`;
+                tooltipText.textContent = `BAU路徑 ${point.year}年: ${point.value.toFixed(1)}%`;
                 positionTooltip(point.x, point.y);
                 tooltip.setAttribute('opacity', '1');
                 circle.setAttribute('r', '6');
@@ -324,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function () {
             circle.setAttribute('style', 'cursor: pointer;');
 
             circle.addEventListener('mouseenter', function () {
-                tooltipText.textContent = `目標 ${point.year}: ${point.value}%`;
+                tooltipText.textContent = `減量目標 ${point.year}年: ${point.value}%`;
                 positionTooltip(point.x, point.y);
                 tooltip.setAttribute('opacity', '1');
                 circle.setAttribute('r', '7');
@@ -459,31 +460,31 @@ document.addEventListener('DOMContentLoaded', function () {
         createLineChart('emissions-trend-chart', {
             labels: ['2022', '2023', '2024'],
             values: [19630736, 18066406, 18753412]
-        }, { color: '#dc3545' });
+        }, { color: '#dc3545', unit: '公噸CO2e' });
 
         // 趨勢圖表 - 碳強度
         createLineChart('intensity-trend-chart', {
             labels: ['2022', '2023', '2024'],
             values: [0.85, 0.82, 0.78]
-        }, { color: '#fd7e14' });
+        }, { color: '#fd7e14', unit: 'tCO2e/百萬元' });
 
         // 趨勢圖表 - 用電量
         createLineChart('energy-trend-chart', {
             labels: ['2022', '2023', '2024'],
             values: [2450000000, 2465000000, 2478844444]
-        }, { color: '#0d6efd' });
+        }, { color: '#0d6efd', unit: 'kWh' });
 
         // 趨勢圖表 - 再生能源裝置量
         createLineChart('re-capacity-trend-chart', {
             labels: ['2022', '2023', '2024'],
             values: [350, 440, 529]
-        }, { color: '#198754' });
+        }, { color: '#198754', unit: 'MW' });
 
         // 趨勢圖表 - 燃煤量
         createLineChart('coal-trend-chart', {
             labels: ['2022', '2023', '2024'],
             values: [15250000, 14890000, 14520000]
-        }, { color: '#6c757d' });
+        }, { color: '#6c757d', unit: '公噸' });
 
         // 減量路徑圖
         createReductionPathway();
