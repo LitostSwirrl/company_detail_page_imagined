@@ -597,7 +597,6 @@ body {
 }
 
 .value-badge.large {
-    font-size: var(--font-size-2xl);
     padding: var(--spacing-md) var(--spacing-lg);
 }
 
