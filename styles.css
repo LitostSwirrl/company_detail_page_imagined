@@ -392,15 +392,20 @@ body {
 }
 
 .metric-label {
+    flex: 0 0 auto;
+    min-width: 200px;
+    padding-right: var(--spacing-md);
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
 }
 
 .metric-label label {
     font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-gray-dark);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
 .help-icon {

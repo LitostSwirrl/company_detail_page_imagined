@@ -133,15 +133,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 const formattedValue = point.value.toLocaleString();
                 tooltipText.textContent = `${point.label}: ${formattedValue}`;
 
-                const bbox = tooltipText.getBBox();
-                tooltipRect.setAttribute('x', bbox.x - 8);
-                tooltipRect.setAttribute('y', bbox.y - 4);
-                tooltipRect.setAttribute('width', bbox.width + 16);
-                tooltipRect.setAttribute('height', bbox.height + 8);
-
+                // 先設置位置再取得 bbox
                 tooltipText.setAttribute('x', point.x);
                 tooltipText.setAttribute('y', point.y - 15);
                 tooltipText.setAttribute('text-anchor', 'middle');
+
+                // 取得 bbox 後設置背景框
+                setTimeout(() => {
+                    const bbox = tooltipText.getBBox();
+                    tooltipRect.setAttribute('x', bbox.x - 8);
+                    tooltipRect.setAttribute('y', bbox.y - 4);
+                    tooltipRect.setAttribute('width', bbox.width + 16);
+                    tooltipRect.setAttribute('height', bbox.height + 8);
+                }, 0);
 
                 tooltip.setAttribute('opacity', '1');
 
@@ -183,17 +187,13 @@ document.addEventListener('DOMContentLoaded', function () {
         // 2024: 18,753,412 (84.9%)
         // 計算 2019-2024 的平均年成長率
         const baselineEmissions = 22100460; // 2019
-        const emission2022 = 19630736;
         const emission2024 = 18753412;
 
-        // 計算 2019-2024 的年均變化（以百分比計）
-        const pct2022 = (emission2022 / baselineEmissions) * 100; // 88.8%
-        const pct2024 = (emission2024 / baselineEmissions) * 100; // 84.9%
+        // 計算 2019-2024 線性斜率（每年約減少 3.01%）
+        const pct2024 = (emission2024 / baselineEmissions) * 100; // 84.87%
+        const yearlyChange = (pct2024 - 100) / (2024 - 2019); // 約 -3.026% per year
 
-        // 計算 2019-2024 線性斜率（每年約減少 3%）
-        const yearlyChange = (pct2024 - 100) / (2024 - 2019); // 約 -3.01% per year
-
-        // BAU 路徑：延續 2019-2024 趨勢
+        // BAU 路徑：延續 2019-2024 趨勢（完全線性）
         const years = [2019, 2022, 2024, 2030, 2040, 2050];
         const bau = years.map(year => 100 + yearlyChange * (year - 2019));
 
@@ -339,15 +339,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         function positionTooltip(x, y) {
-            const bbox = tooltipText.getBBox();
-            tooltipRect.setAttribute('x', bbox.x - 8);
-            tooltipRect.setAttribute('y', bbox.y - 4);
-            tooltipRect.setAttribute('width', bbox.width + 16);
-            tooltipRect.setAttribute('height', bbox.height + 8);
-
+            // 先設置位置
             tooltipText.setAttribute('x', x);
             tooltipText.setAttribute('y', y - 15);
             tooltipText.setAttribute('text-anchor', 'middle');
+
+            // 再取得 bbox 並設置背景框
+            setTimeout(() => {
+                const bbox = tooltipText.getBBox();
+                tooltipRect.setAttribute('x', bbox.x - 8);
+                tooltipRect.setAttribute('y', bbox.y - 4);
+                tooltipRect.setAttribute('width', bbox.width + 16);
+                tooltipRect.setAttribute('height', bbox.height + 8);
+            }, 0);
         }
 
         // X軸標籤
