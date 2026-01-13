@@ -24,17 +24,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 計算合適的最大值（四捨五入到整數）
         let maxValue;
-        if (dataMax >= 1000000) {
-            // 大數字：四捨五入到百萬
+        if (dataMax >= 1000000000) {
+            // 十億級：四捨五入到億（100,000,000）
+            maxValue = Math.ceil(dataMax / 100000000) * 100000000;
+        } else if (dataMax >= 1000000) {
+            // 百萬級：四捨五入到百萬
             maxValue = Math.ceil(dataMax / 1000000) * 1000000;
         } else if (dataMax >= 10000) {
-            // 中等數字：四捨五入到萬
+            // 萬級：四捨五入到萬
             maxValue = Math.ceil(dataMax / 10000) * 10000;
         } else if (dataMax >= 100) {
-            // 小數字：四捨五入到百
+            // 百級：四捨五入到百
             maxValue = Math.ceil(dataMax / 100) * 100;
         } else {
-            // 極小數字：四捨五入到十
+            // 十級：四捨五入到十
             maxValue = Math.ceil(dataMax / 10) * 10;
         }
 
