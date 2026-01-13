@@ -249,16 +249,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
         svg.appendChild(tooltip);
 
-        // 計算路徑點（使用動態 y 軸）
+        // 計算路徑點（使用動態 y 軸和真實時間比例的 x 軸）
         const yRange = yAxisMax - yAxisMin;
+        const minYear = Math.min(...years);
+        const maxYear = Math.max(...years);
+        const yearRange = maxYear - minYear;
+
         const bauPointsData = bau.map((value, i) => {
-            const x = padding.left + (chartWidth / (years.length - 1)) * i;
+            // x 軸按真實年份比例分布
+            const yearProgress = (years[i] - minYear) / yearRange;
+            const x = padding.left + chartWidth * yearProgress;
             const y = padding.top + chartHeight - ((value - yAxisMin) / yRange) * chartHeight;
             return { x, y, value, year: years[i] };
         });
 
         const targetPointsData = target.map((value, i) => {
-            const x = padding.left + (chartWidth / (years.length - 1)) * i;
+            // x 軸按真實年份比例分布
+            const yearProgress = (years[i] - minYear) / yearRange;
+            const x = padding.left + chartWidth * yearProgress;
             const y = padding.top + chartHeight - ((value - yAxisMin) / yRange) * chartHeight;
             return { x, y, value, year: years[i] };
         });
@@ -355,9 +363,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 0);
         }
 
-        // X軸標籤
+        // X軸標籤（按真實年份比例分布）
         years.forEach((year, i) => {
-            const x = padding.left + (chartWidth / (years.length - 1)) * i;
+            const yearProgress = (year - minYear) / yearRange;
+            const x = padding.left + chartWidth * yearProgress;
             const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
             text.setAttribute('x', x);
             text.setAttribute('y', height - 20);
