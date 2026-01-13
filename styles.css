@@ -596,9 +596,7 @@ body {
     font-size: var(--font-size-base);
 }
 
-.value-badge.large {
-    padding: var(--spacing-md) var(--spacing-lg);
-}
+/* .value-badge.large - removed to unify all badge padding */
 
 .value-badge.highlight {
     background-color: var(--color-success);
